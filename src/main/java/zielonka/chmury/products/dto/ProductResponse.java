@@ -1,6 +1,7 @@
-package zielonka.chmury.products;
+package zielonka.chmury.products.dto;
 
 import lombok.Data;
+import zielonka.chmury.products.ProductCategory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

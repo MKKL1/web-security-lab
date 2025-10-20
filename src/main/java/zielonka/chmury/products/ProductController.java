@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import zielonka.chmury.products.dto.ProductRequest;
+import zielonka.chmury.products.dto.ProductResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<ProductResponse>> getProductsByCategory(ProductCategory category) {
+    public ResponseEntity<List<ProductResponse>> getProductsByCategory(@PathVariable ProductCategory category) {
         log.info("GET /api/v1/products/category/{} - Pobieranie produktu", category);
         List<ProductResponse> products = productService.getProductsByCategory(category);
         return ResponseEntity.ok(products);

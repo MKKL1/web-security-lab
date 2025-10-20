@@ -1,43 +1,50 @@
 package zielonka.chmury.products;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
-@Data
-public class Product {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 100,
-            message = "Name must have between 2 and 100 characters")
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 100)
     private String name;
-    //niepusta, max 1000 znaków, definicja TEXT
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
-    //niepusta, minimum 0.01, złożona z cyfr
-//format max 10 cyfr, 2 cyfry części ułamkowej
+
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
-    //niepusta, typu wyliczeniowego (zapisywanego jako tekst)
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private ProductCategory category;
-    //niepusta, nieujemna
+
+    @Column(nullable = false)
     private Integer stockQuantity;
-    //niepusta
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Column
     private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

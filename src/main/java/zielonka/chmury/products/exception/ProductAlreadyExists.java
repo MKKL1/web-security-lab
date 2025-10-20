@@ -1,4 +1,4 @@
-package zielonka.chmury.products;
+package zielonka.chmury.products.exception;
 
 public class ProductAlreadyExists extends RuntimeException {
 }
